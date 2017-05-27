@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maxium-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<head>
+<meta charset="euc-kr">
+<title>여성안심귀가서비스</title>
+<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+
+<center>
+<div id="header-area"><a href = "index.html"><img src ="images/logo.png"></a></div>
+<div id="mobileselect-section2" style= "margin:5%">
+<center>
+<h2>회원가입</h2>
+<form method="post" name = "form" action="signup.jsp">
+<table>
+<hr>
+<br>
+<tr>
+<td>이름</td>
+	<td><input type="text" name="name" style= "width:100%"></td>
+</tr>
+<tr>
+<td>아이디</td>
+	<td><input type="text" name="id" id="id" style= "width:100%"></td><td></td>
+	<td><input type="button" name="check" value="중복체크" style= "width:100%" OnClick="idcheck();"></td>
+</tr>
+<tr>
+<td>패스워드</td>
+	<td><input type="password" name="password" style= "width:100%"></td>
+</tr>
+<tr>
+	<td>패스워드 (확인)</td>
+	<td><input type="password" name="ps2" style= "width:100%"></td>
+</tr>
+<tr>
+	<td>연락처</td>
+	<td><input type="text" name="pnum" id="pnum" onkeyup="autoHypenPhone(str);" style= "width:100%" maxlength="13"></td>
+</tr>
+<tr>
+	<td>만남장소</td>
+	<td><input type="text" name="appoint"  style= "width:100%"></td>
+</tr>
+
+<tr>
+	<td colspan=2 align="center">
+	<br>
+		<input type="submit" value="확인" OnClick="javascript:writeCheck();">
+		<input type="reset" value="취소">
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</center>
+<script>
+
+
+function idcheck(){
+	var form1 = document.form.id.value;
+	if(form1 == ''){
+		alert("아이디를 적어주세요");
+		form1.id.focus();
+		return false;
+	}
+	else if(CheckID(document.form.id.value)){
+		form.action="idcheck.jsp?id="+form1;
+		document.form.submit();
+		return;
+	}
+	
+
+}
+
+
+
+function autoHypenPhone(str){
+    str = str.replace(/[^0-9]/g, '');
+    var tmp = '';
+    if( str.length < 4){
+        return str;
+    }else if(str.length < 7){
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3);
+        return tmp;
+    }else if(str.length < 11){
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3, 3);
+        tmp += '-';
+        tmp += str.substr(6);
+        return tmp;
+    }else{              
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3, 4);
+        tmp += '-';
+        tmp += str.substr(7);
+        return tmp;
+    }
+    return str;
+}
+
+var pnum = document.getElementById('pnum');
+pnum.onkeyup = function(event){
+event = event || window.event;
+var _val = this.value.trim();
+this.value = autoHypenPhone(_val) ;
+}
+
+
+function writeCheck()
+{
+ var form = document.form;
+ 
+ if( !form.name.value )   // form 에 있는 name 값이 없을 때
+ {
+  alert( "이름을 적어주세요" ); // 경고창 띄움
+  form.name.focus();   // form 에 있는 name 위치로 이동
+  return;
+ }
+    
+if( !form.id.value )
+ {
+  alert( "아이디를 적어주세요" );
+  form.id.focus();
+  return;
+ }
+if( !form.password.value )
+{
+ alert( "비밀번호를 적어주세요" );
+ form.password.focus();
+ return;
+}
+
+if( !form.pnum.value )
+ {
+  alert( "전화번호를 적어주세요" );
+  form.pnum.focus();
+  return;
+ }
+ 
+if( !form.appoint.value )
+{
+ alert( "만날 장소를 적어주세요" );
+ form.prepoint.focus();
+ return;
+}
+
+
+form.submit();
+
+ 
+}
+ 
+
+</script>
+</body>
+</html>
